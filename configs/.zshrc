@@ -112,21 +112,30 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 source ~/Tools/utils.sh
 
+alias ca="conda activate"
+alias ma="mamba activate"
+
 alias de="conda deactivate"
+alias md="mamba deactivate"
+
+alias el="conda env list"
+
+alias dt="ca data"
+alias fclr="ca fcolor"
+
 alias sb="source ~/.bashrc"
-alias ac="conda activate"
 alias dsp="df -h /dev/sdb4"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/dungmaster/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+__conda_setup="$('/home/dungmaster/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/home/dungmaster/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/dungmaster/anaconda3/etc/profile.d/conda.sh"
+    if [ -f "/home/dungmaster/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/dungmaster/miniconda3/etc/profile.d/conda.sh"
     else
-        export PATH="/home/dungmaster/anaconda3/bin:$PATH"
+        export PATH="/home/dungmaster/miniconda3/bin:$PATH"
     fi
 fi
 unset __conda_setup
@@ -160,3 +169,10 @@ source ~/.oh-my-zsh/custom/themes/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# Created by `pipx` on 2023-12-13 09:28:03
+export PATH="$PATH:/home/dungmaster/.local/bin"
+
+# label-studio
+export LABEL_STUDIO_LOCAL_FILES_SERVING_ENABLED="true"
+export LABEL_STUDIO_LOCAL_FILES_DOCUMENT_ROOT=$(pwd)
