@@ -43,11 +43,26 @@
 (visual-line-mode 1)
 
 ; start auto-complete with emacs
-(require 'auto-complete)
+; (require 'auto-complete)
 ; do default config for auto-complete
-(require 'auto-complete-config)
-(ac-config-default)
+; (require 'auto-complete-config)
+; (ac-config-default)
 
+;; resizing window
+(global-set-key (kbd "C-S-<left>") 'shrink-window-horizontally)
+(global-set-key (kbd "C-S-<right>") 'enlarge-window-horizontally)
+(global-set-key (kbd "C-S-<down>") 'shrink-window)
+(global-set-key (kbd "C-S-<up>") 'enlarge-window)
+
+;; Ace window
+(global-set-key (kbd "M-o") 'ace-window)
+(setq aw-background nil)
+
+;; Faster moving window
+(global-set-key (kbd "M-S-<left>") 'windmove-left)          ; move to left window
+(global-set-key (kbd "M-S-<right>") 'windmove-right)        ; move to right window
+(global-set-key (kbd "M-S-<up>") 'windmove-up)              ; move to upper window
+(global-set-key (kbd "M-S-<down>") 'windmove-down)          ; move to lower window
 
 ;; Add better packages than default
 (defvar myPackages
@@ -90,8 +105,9 @@
 ;; (setq python-shell-interpreter "ipython"
 ;;       python-shell-interpreter-args "-i --simple-prompt")
 
-;; Window package
-(global-set-key (kbd "M-o") 'ace-window)
+;; Yaml
+(require 'yaml-mode)
+    (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
 
 ;; Auto packages
 (when (require 'flycheck nil t)
@@ -106,6 +122,7 @@
 (setq neo-theme 'nerd)
  
 (global-set-key [f8] 'neotree-toggle)
+(setq neo-smart-open t)
  
 (setq
  browsse-url-browser-function 'eww-browse-url
@@ -115,13 +132,12 @@
  shr-width 70
  eww-search-prefix "https://wiby.me/?q=")
 
-;; Ace window
-(global-set-key (kbd "M-o") 'ace-window)
-
 ;; Multiple cursors
 (require 'multiple-cursors)
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
-
+(global-set-key (kbd "C-c >") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-c <") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c .") 'mc/mark-all-like-this)
 
 ;; (custom-set-variables
 ;;  ;; custom-set-variables was added by Custom.
