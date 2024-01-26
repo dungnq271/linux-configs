@@ -120,8 +120,7 @@ alias md="mamba deactivate"
 
 alias el="conda env list"
 
-alias dt="ca data"
-alias fclr="ca fcolor"
+alias fs="ca fashion"
 
 alias sb="source ~/.bashrc"
 alias dsp="df -h /dev/sdb4"
