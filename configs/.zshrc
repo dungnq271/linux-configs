@@ -110,8 +110,6 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-source ~/Tools/utils.sh
-
 alias ca="conda activate"
 alias ma="mamba activate"
 
