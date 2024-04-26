@@ -94,6 +94,14 @@
 (load-theme 'material t) ;; load material theme
 (global-linum-mode t) ;; enable line numbers globally
 
+;; Load theme for prose
+;; (add-hook 'text-mode-hook
+;;            (lambda ()
+;;              (variable-pitch-mode 1)))
+;; (set-face-attribute 'default nil :family "DejaVu Sans Mono" :height 130)
+;; (set-face-attribute 'fixed-pitch nil :family "DejaVu Sans Mono")
+;; (set-face-attribute 'variable-pitch nil :family "IBM Plex Serif")
+
 ;; Load nord-theme
 ;; (add-to-list 'custom-theme-load-path (expand-file-name "~/.emacs.d/themes/"))
 ;; (load-theme 'nord t)
@@ -169,7 +177,7 @@
      ("#3C3D37" . 100)))
  '(magit-diff-use-overlays nil)
  '(package-selected-packages
-   '(nord-theme ace-window hl-todo py-autopep8 csv-mode auto-save-buffers-enhanced slurm-mode dockerfile-mode ein java-imports markdown-preview-mode markdown-preview-eww markdown-mode neotree dracula-theme github-theme pyvenv-auto pyenv-mode material-theme exec-path-from-shell elpy better-defaults auto-highlight-symbol auto-complete))
+   '(poet-theme nord-theme ace-window hl-todo py-autopep8 csv-mode auto-save-buffers-enhanced slurm-mode dockerfile-mode ein java-imports markdown-preview-mode markdown-preview-eww markdown-mode neotree dracula-theme github-theme pyvenv-auto pyenv-mode material-theme exec-path-from-shell elpy better-defaults auto-highlight-symbol auto-complete))
  '(pos-tip-background-color "#FFFACE")
  '(pos-tip-foreground-color "#272822")
  '(weechat-color-list
