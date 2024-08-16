@@ -110,40 +110,18 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias ca="conda activate"
-alias ma="mamba activate"
 
-alias de="conda deactivate"
-alias md="mamba deactivate"
+source ~/script.sh
+export PATH="$PATH:/usr/local/bin/python3"
+alias ve="python3 -m venv venv"
+alias va="source venv/bin/activate"
+alias de="deactivate"
 
-alias el="conda env list"
-
-alias fs="ca fashion"
-
-alias sb="source ~/.bashrc"
-alias dsp="df -h /dev/sdb4"
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/dungmaster/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/dungmaster/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/dungmaster/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/dungmaster/miniconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-
-export PYTHONPATH=$(pwd)
-
-alias vb="vim ~/.bashrc"
+# alias em="TERM=xterm-256color ./src/emacs -nw"
+alias emacs="~/Softwares/emacs-29.1/src/emacs"
 alias em="TERM=xterm-256color emacs -nw"
 
-alias ee="em ~/.emacs"
+alias ee="em ~/.emacs.d/init.el"
 alias ez="em ~/.zshrc"
 alias et="em ~/.tmux.conf"
 
@@ -152,13 +130,12 @@ alias st="tmux source ~/.tmux.conf"
 
 alias pip="noglob pip"
 
-alias sl="systemctl suspend"
+alias sl="systemctl suspend -i"
 alias sd="sudo poweroff"
 alias rs="sudo reboot"
 
 alias xo="xdg-open"
-
-alias lst="label-studio"
+alias es="exa"
 
 export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libstdc++.so.6
 
@@ -173,3 +150,7 @@ export PATH="$PATH:/home/dungmaster/.local/bin"
 # label-studio
 export LABEL_STUDIO_LOCAL_FILES_SERVING_ENABLED="true"
 export LABEL_STUDIO_LOCAL_FILES_DOCUMENT_ROOT=$(pwd)
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
