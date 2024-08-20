@@ -101,7 +101,6 @@ Save bookmarks when modified
 #+END_SRC
 
 ** Org mode
-
 *** Org bullets
 #+BEGIN_SRC emacs-lisp
   (use-package org-bullets
@@ -126,61 +125,26 @@ Save bookmarks when modified
 
 ** IDO
 #+BEGIN_SRC emacs-lisp
-(setq ido-everywhere t)
-(setq ido-enable-flex-matching t)
-(ido-mode t)
+  ;; (setq ido-everywhere t)
+  ;; (setq ido-enable-flex-matching t)
+  ;; (ido-mode t)
 #+END_SRC
 
-** Web mode
+** FIDO
 #+BEGIN_SRC emacs-lisp
-  (setq web-mode-markup-indent-offset 2)
-  (setq web-mode-code-indent-offset 2)
-  (setq web-mode-css-indent-offset 2)   
-  (use-package web-mode
-    :ensure t
-    :mode (("\\.js\\'" . web-mode)
-	   ("\\.jsx\\'" .  web-mode)
-	   ("\\.ts\\'" . web-mode)
-	   ("\\.tsx\\'" . web-mode)
-	   ("\\.html\\'" . web-mode)
-	   ("\\.css\\'" . web-mode)
-    )
-    :config
-    (setq web-mode-markup-indent-offset 2)
-    (setq web-mode-code-indent-offset 2)
-    (setq web-mode-css-indent-offset 2)    
-    :commands web-mode
-    )
+(fido-mode 1)
 #+END_SRC
 
-** LSP mode
+** Power mode
 #+BEGIN_SRC emacs-lisp
-  (use-package lsp-mode
+  (setq power-mode-shake-strength nil)
+  (setq power-mode-streak-shake-threshold nil)
+  (use-package power-mode
     :ensure t
-    :hook
-    (web-mode . lsp-deferred)
-    (python-mode . lsp-deferred)
-    (lsp-mode . lsp-enable-which-key-integration)
-    :config
-    (setq lsp-log-io nil)
-    (setq lsp-keymap-prefix "C-c l")
-    (setq lsp-restart 'auto-restart)
-    ;; (setq lsp-ui-sideline-show-diagnostics t)
-    ;; (setq lsp-ui-sideline-show-hover t)
-    ;; (setq lsp-ui-sideline-show-code-actions t)
-    ;; For Python
-    (setq lsp-pylsp-plugins-ruff-enabled nil) 
-    (setq lsp-pylsp-plugins-isort-enabled nil)
-    (setq lsp-pylsp-plugins-mypy-enabled nil)
-    (setq lsp-pylsp-plugins-mypy-live-mode nil)
-    ;; For HTML
-    (setq lsp-html-format-enable t)
-    :commands lsp-deferred
+    :load-path "packages"
+    ;; :init
+    ;; (add-hook 'after-init-hook 'power-mode)
     )
-
-  ;; (use-package lsp-ui
-  ;;   :ensure t
-  ;;   :commands lsp-ui-mode)
 #+END_SRC
 
 
@@ -195,13 +159,17 @@ Save bookmarks when modified
 
 ** Projectile
 #+BEGIN_SRC emacs-lisp
-(use-package projectile
-  :ensure t
-  :config
-  (define-key projectile-mode-map (kbd "C-x p") 'projectile-command-map)
-  (projectile-mode +1))
+  ;; (use-package projectile
+  ;;   :ensure t
+  ;;   :config
+  ;;   (define-key projectile-mode-map (kbd "C-x p") 'projectile-command-map)
+  ;;   (projectile-mode +1))
 #+END_SRC
 
+** Built-in Project Package
+#+BEGIN_SRC emacs-lisp
+  (require 'project)
+#+END_SRC
 ** Dashboard
 #+BEGIN_SRC emacs-lisp
   (use-package dashboard
@@ -293,7 +261,7 @@ Save bookmarks when modified
     (global-flycheck-mode))
 #+END_SRC
 
-** Amx
+*** Amx
 #+BEGIN_SRC emacs-lisp
   (use-package ido-completing-read+
     :ensure t
@@ -308,7 +276,7 @@ Save bookmarks when modified
     )
 #+END_SRC
 
-** Multiple Cursors
+*** Multiple Cursors
 #+BEGIN_SRC emacs-lisp
   (use-package multiple-cursors
     :ensure t
@@ -326,7 +294,7 @@ Save bookmarks when modified
   ;; (global-set-key (kbd "C-c .") 'mc/mark-all-like-this)
 #+END_SRC
 
-** Expand region
+*** Expand region
 #+BEGIN_SRC emacs-lisp
   (use-package expand-region
     :ensure t
@@ -336,7 +304,7 @@ Save bookmarks when modified
     )
 #+END_SRC
 
-** Centaur tabs
+*** Centaur tabs
 #+BEGIN_SRC emacs-lisp
   (use-package centaur-tabs
     :ensure t
@@ -379,6 +347,69 @@ Save bookmarks when modified
   ;;   :hook (rjsx-mode . setup-tide-mode))
 #+END_SRC
 
+** Web mode
+#+BEGIN_SRC emacs-lisp
+  (setq-default tabs-width 2)
+  (setq indent-tabs-mode nil)
+  (use-package web-mode
+    :ensure t
+    :mode (("\\.jsx?\\'" .  web-mode)
+	   ("\\.tsx?\\'" . web-mode)
+	   ("\\.html\\'" . web-mode)
+	   ("\\.css\\'" . web-mode))
+    :config
+    (setq web-mode-enable-comment-annotation t)
+    (setq web-mode-markup-indent-offset 2)
+    (setq web-mode-code-indent-offset 2)
+    (setq web-mode-css-indent-offset 2)
+    (setq web-mode-attr-indent-offset 0)
+    (setq web-mode-enable-auto-indentation t)
+    (setq web-mode-enable-auto-closing t)
+    (setq web-mode-enable-auto-pairing t)
+    (setq web-mode-enable-css-colorization t)    
+    :commands web-mode
+    :hook
+    (web-mode . power-mode)
+    )
+#+END_SRC
+
+** LSP mode
+#+BEGIN_SRC emacs-lisp
+  (use-package lsp-mode
+    :ensure t
+    :hook
+    (web-mode . lsp-deferred)
+    ;; (python-mode . lsp-deferred)
+    (lsp-mode . lsp-enable-which-key-integration)
+    :config
+    (setq lsp-log-io nil)
+    (setq lsp-keymap-prefix "C-c l")
+    ;; (setq lsp-restart 'auto-restart)
+    ;; (setq lsp-ui-sideline-show-diagnostics t)
+    ;; (setq lsp-ui-sideline-show-hover t)
+    ;; (setq lsp-ui-sideline-show-code-actions t)
+    ;; For Python
+    (setq lsp-pylsp-plugins-ruff-enabled nil) 
+    (setq lsp-pylsp-plugins-isort-enabled nil)
+    (setq lsp-pylsp-plugins-mypy-enabled nil)
+    (setq lsp-pylsp-plugins-mypy-live-mode nil)
+    ;; For HTML
+    (setq lsp-html-format-enable t)
+    :commands lsp-deferred
+    )
+
+  ;; (use-package lsp-ui
+  ;;   :ensure t
+  ;;   :commands lsp-ui-mode)
+#+END_SRC
+
+** NPM mode
+#+BEGIN_SRC emacs-lisp
+  (use-package npm-mode
+    :ensure t
+    :config
+    (npm-global-mode))
+#+END_SRC
 ** Prettier
 #+BEGIN_SRC emacs-lisp
     ;; (use-package prettier-js
@@ -402,13 +433,18 @@ Save bookmarks when modified
 				'("\\.tsx?\\'" . prettier-js-mode))))
 #+END_SRC
 
-
 ** Typescript
 #+BEGIN_SRC emacs-lisp
   (use-package exec-path-from-shell
     :ensure t
     :config
     (exec-path-from-shell-initialize))
+#+END_SRC
+
+** Other
+#+BEGIN_SRC emacs-lisp
+  (use-package add-node-modules-path
+    :ensure t)
 #+END_SRC
 
 
