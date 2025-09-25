@@ -19,6 +19,33 @@
 (when (not package-archive-contents)
   (package-refresh-contents))
 
+;; ===================================
+;; General Settings
+;; ===================================
+
+;; Enable erase-buffer command
+(put 'erase-buffer 'disabled nil)
+
+;; Replace when select rather than insert
+(delete-selection-mode +1)             
+
+;; Highlight line
+(global-hl-line-mode +1)
+
+; Disable menu bar at start up
+(menu-bar-mode -1)
+(scroll-bar-mode -1)
+(tool-bar-mode -1)
+
+;; Automatically close opening delimiters
+(electric-pair-mode 1)
+
+;; See matching pairs of parentheses and other characters
+(show-paren-mode 1)
+
+;; Visual line mode
+(visual-line-mode 1)
+
 ;; Installs packages
 ;;
 ;; myPackages contains a list of package names
@@ -46,10 +73,8 @@
 ;; Basic Customization
 ;; ===================================
 (setq inhibit-startup-message t)    ;; Hide the startup message
-(load-theme 'material t)            ;; Load material theme
 (global-display-line-numbers-mode 1)
-(add-hook 'prog-mode-hook #'display-line-numbers-mode)
-(setq linum-format "%d ")           ;; Add a space after line number
+(add-hook 'prog-mode-hook 'display-line-numbers-mode)
 
 ;; ====================================
 ;; Development Setup
@@ -86,8 +111,7 @@
 ;; (setq python-shell-interpreter "ipython"
 ;;       python-shell-interpreter-args "-i --simple-prompt")
 
-(put 'erase-buffer 'disabled nil)      ;; Enable erase-buffer command
-(delete-selection-mode +1)             ;; Replace when select rather than insert
+
 
 ;; ===================================
 ;; Theme Customization
@@ -99,22 +123,15 @@
 ;; (require 'color-theme-sanityinc-tomorrow)
 ;; (load-theme 'monokai t)
 ;; (load-theme 'dracula t)
+(load-theme 'material t)
 
-; Disable menu bar at start up
-(menu-bar-mode -1)
-(scroll-bar-mode -1)
-(tool-bar-mode -1)
+;; Bookmarks
+;;; Set bookmarks file
+(setq bookmark-default-file "~/.emacs.d/tut-bookmarks")
+;;; Save bookmarks when modified
+(setq bookmark-save-flag 1)
 
-;; Automatically close opening delimiters
-(electric-pair-mode 1)
-
-;; See matching pairs of parentheses and other characters
-(show-paren-mode 1)
-
-;; Visual line mode
-(visual-line-mode 1)
-
-;; yaml mode
+;; Yaml mode
 (require 'yaml-mode)
     (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
 
@@ -148,15 +165,6 @@
 (global-set-key [f7] 'neotree-toggle)
 (setq neo-smart-open t)
  
-;; Browser search
-;; (setq
-;;  browsse-url-browser-function 'eww-browse-url
-;;  shr-use-fonts nil
-;;  shr-use-colors nil
-;;  shr-indentation 2
-;;  shr-width 70
-;;  eww-search-prefix "https://wiby.me/?q=")
-
 ;; ===================================
 ;; JS & TS
 ;; ===================================

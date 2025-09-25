@@ -24,7 +24,7 @@ Super duper config
 
 ** Highlight line
 #+BEGIN_SRC emacs-lisp
-(global-hl-line-mode +1)
+  ;; (global-hl-line-mode +1)
 #+END_SRC
 
 ** Delete selection
@@ -79,8 +79,10 @@ Save bookmarks when modified
   (use-package doom-themes
     :ensure t
     :config
-    (load-theme 'doom-one t)
+    ;; (load-theme 'doom-one t)
     ;; (load-theme 'doom-dracula t)
+    (load-theme 'doom-nord t)
+    ;; (load-theme 'doom-city-lights t)        
     ;; (load-theme 'doom-solarized-light t)
     )
 #+END_SRC
@@ -137,14 +139,14 @@ Save bookmarks when modified
 
 ** Power mode
 #+BEGIN_SRC emacs-lisp
-  (setq power-mode-shake-strength nil)
-  (setq power-mode-streak-shake-threshold nil)
-  (use-package power-mode
-    :ensure t
-    :load-path "packages"
-    ;; :init
-    ;; (add-hook 'after-init-hook 'power-mode)
-    )
+  ;; (setq power-mode-shake-strength nil)
+  ;; (setq power-mode-streak-shake-threshold nil)
+  ;; (use-package power-mode
+  ;;   :ensure t
+  ;;   :load-path "packages"
+  ;;   ;; :init
+  ;;   ;; (add-hook 'after-init-hook 'power-mode)
+  ;;   )
 #+END_SRC
 
 
@@ -183,7 +185,7 @@ Save bookmarks when modified
 	    )
       (setq dashboard-show-shotcuts nil)
       (setq dashboard-center-content nil)
-      (setq dashboard-banner-logo-title "Have a good day!")
+      (setq dashboard-banner-logo-title "Happy coding!")
       (setq dashboard-set-file-icons t)
       (setq dashboard-set-heading-icons t)
       (setq dashboard-startup-banner 'logo)
@@ -368,8 +370,8 @@ Save bookmarks when modified
     (setq web-mode-enable-auto-pairing t)
     (setq web-mode-enable-css-colorization t)    
     :commands web-mode
-    :hook
-    (web-mode . power-mode)
+    ;; :hook
+    ;; (web-mode . power-mode)
     )
 #+END_SRC
 
@@ -393,6 +395,8 @@ Save bookmarks when modified
     (setq lsp-pylsp-plugins-isort-enabled nil)
     (setq lsp-pylsp-plugins-mypy-enabled nil)
     (setq lsp-pylsp-plugins-mypy-live-mode nil)
+    (setq lsp-pylsp-plugins-flake8-max-line-length 88)
+    (setq lsp-volar-take-over-mode nil)    
     ;; For HTML
     (setq lsp-html-format-enable t)
     :commands lsp-deferred
@@ -401,6 +405,14 @@ Save bookmarks when modified
   ;; (use-package lsp-ui
   ;;   :ensure t
   ;;   :commands lsp-ui-mode)
+#+END_SRC
+
+** LSP tailwindcss
+#+BEGIN_SRC emacs-lisp
+  (use-package lsp-tailwindcss
+    :after lsp-mode
+    :init
+    (setq lsp-tailwindcss-add-on-mode t))  
 #+END_SRC
 
 ** NPM mode
@@ -430,7 +442,12 @@ Save bookmarks when modified
 			       (enable-minor-mode
 				'("\\.jsx?\\'" . prettier-js-mode))
 			       (enable-minor-mode
-				'("\\.tsx?\\'" . prettier-js-mode))))
+				'("\\.tsx?\\'" . prettier-js-mode))
+			       (enable-minor-mode
+				'("\\.html\\'" . prettier-js-mode))
+				 (enable-minor-mode
+				  '("\\.css\\'" . prettier-js-mode))			       
+			       ))
 #+END_SRC
 
 ** Typescript
@@ -448,6 +465,17 @@ Save bookmarks when modified
 #+END_SRC
 
 
+** Vue mode
+#+BEGIN_SRC emacs-lisp
+  ;; (use-package vue-mode
+  ;;   :ensure t
+  ;;   :config
+  ;;   (setq mmm-submode-decoration-level 0)
+  ;;   (setq prettier-js-args '("--parser vue"))
+  ;;   )
+  ;; (add-hook 'vue-mode-hook #'lsp)
+#+END_SRC
+
 * Python
 
 ** Elpy
@@ -456,6 +484,7 @@ Save bookmarks when modified
     :ensure t
     :config
     (setq elpy-rpc-virtualenv-path 'current)
+    (setq elpy-rpc-python-command "python3")
     :init
     (elpy-enable)
     )
@@ -471,4 +500,19 @@ Save bookmarks when modified
     :ensure t)
 
   (add-hook 'python-mode-hook 'ruff-format-on-save-mode)
+#+END_SRC
+
+
+* Rust
+** Rust mode
+#+BEGIN_SRC emacs-lisp
+  (require 'rust-mode)
+#+END_SRC
+** LSP mode
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'rust-mode-hook 'lsp-deferred)
+#+END_SRC
+** Code formatting
+#+BEGIN_SRC emacs-lisp
+  (setq rust-format-on-save t)
 #+END_SRC
