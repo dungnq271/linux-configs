@@ -162,28 +162,30 @@ Save bookmarks when modified
 
 ** Projectile
 #+BEGIN_SRC emacs-lisp
-  ;; (use-package projectile
-  ;;   :ensure t
-  ;;   :config
-  ;;   (define-key projectile-mode-map (kbd "C-x p") 'projectile-command-map)
-  ;;   (projectile-mode +1))
+  (use-package projectile
+     :ensure t
+     :config
+     (define-key projectile-mode-map (kbd "C-x p") 'projectile-command-map)
+     (projectile-mode +1))
 #+END_SRC
 
 ** Built-in Project Package
 #+BEGIN_SRC emacs-lisp
   (require 'project)
 #+END_SRC
+
 ** Dashboard
 #+BEGIN_SRC emacs-lisp
   (use-package dashboard
     :ensure t
     :init
     (progn
-      (setq dashboard-items '((recents . 5)
-			      (projects . 5)
-			      (bookmarks . 2)
-			      )
-	    )
+      (setq dashboard-items '((recents . 10)
+  			      (projects . 5)
+  			      (bookmarks . 2)
+  			      )
+  	  )
+      (setq dashboard-projects-backend 'projectile)
       (setq dashboard-show-shotcuts nil)
       (setq dashboard-center-content nil)
       (setq dashboard-banner-logo-title "Happy coding!")
@@ -192,11 +194,11 @@ Save bookmarks when modified
       (setq dashboard-startup-banner 'logo)
       (setq dashboard-set-navigator nil)
       (setq dashboard-navigator-buttons
-	    `(;; line1
-	    ((,nil
-	      "init file"
-	      "Open init file"
-	      (lambda (&rest _) (find-file "~/.emacs.d/my-tut-v2.org"))
+  	    `(;; line1
+  	    ((,nil
+  	      "init file"
+  	      "Open init file"
+  	      (lambda (&rest _) (find-file "~/.emacs.d/my-tut-v2.org"))
       )))))
     :config
     (dashboard-setup-startup-hook))
