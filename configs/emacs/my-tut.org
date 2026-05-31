@@ -195,7 +195,7 @@ Save bookmarks when modified
 	    ((,nil
 	      "init file"
 	      "Open init file"
-	      (lambda (&rest _) (find-file "~/.emacs.d/my-tut.org"))
+	      (lambda (&rest _) (find-file "~/.emacs.d/my-tut-v2.org"))
       )))))
     :config
     (dashboard-setup-startup-hook))
@@ -329,7 +329,14 @@ Save bookmarks when modified
 #+BEGIN_SRC emacs-lisp
   ;; (use-package rjsx-mode
   ;;   :ensure t
-  ;;   :mode "\\.js\\'")
+  ;;   :mode ("\\.js\\'"
+  ;; 	 "\\.jsx\\'")
+  ;;   :config
+  ;;   (setq js2-mode-show-parse-errors nil
+  ;;      js2-mode-show-strict-warnings nil
+  ;;      js2-basic-offset 2
+  ;;      js-indent-level 2)
+  ;;   )
 #+END_SRC
 
 ** Tide
@@ -422,13 +429,9 @@ Save bookmarks when modified
     :config
     (npm-global-mode))
 #+END_SRC
+
 ** Prettier
 #+BEGIN_SRC emacs-lisp
-    ;; (use-package prettier-js
-    ;;   :ensure t
-    ;;   :after (rjsx-mode)
-    ;;   :hook (rjsx-mode . prettier-js-mode))
-
   (defun enable-minor-mode (my-pair)
     "Enable minor mode if filename match the regexp.  MY-PAIR is a cons cell (regexp . minor-mode)."
     (if (buffer-file-name)
@@ -445,8 +448,8 @@ Save bookmarks when modified
 				'("\\.tsx?\\'" . prettier-js-mode))
 			       (enable-minor-mode
 				'("\\.html\\'" . prettier-js-mode))
-				 (enable-minor-mode
-				  '("\\.css\\'" . prettier-js-mode))			       
+			       (enable-minor-mode
+				'("\\.css\\'" . prettier-js-mode))			       
 			       ))
 #+END_SRC
 
@@ -461,7 +464,8 @@ Save bookmarks when modified
 ** Other
 #+BEGIN_SRC emacs-lisp
   (use-package add-node-modules-path
-    :ensure t)
+    :defer t
+    :hook (((js2-mode rjsx-mode) . add-node-modules-path)))
 #+END_SRC
 
 

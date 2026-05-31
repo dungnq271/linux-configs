@@ -29,4 +29,4 @@
 (keymap-global-set "M-S-<up>" 'windmove-up)
 (keymap-global-set "M-S-<down>" 'windmove-down)
 
-(org-babel-load-file (expand-file-name "~/.emacs.d/my-tut.org"))
+(org-babel-load-file (expand-file-name "~/.emacs.d/my-tut-v2.org"))

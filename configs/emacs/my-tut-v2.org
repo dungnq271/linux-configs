@@ -4,52 +4,52 @@ Super duper config
 
 ** Don't show startup message
 #+BEGIN_SRC emacs-lisp
-(setq inhibit-startup-message t)
+  (setq inhibit-startup-message t)
 #+END_SRC
 
 ** Don't show toolbar
 #+BEGIN_SRC emacs-lisp
-(tool-bar-mode -1)
+  (tool-bar-mode -1)
 #+END_SRC
 
 ** Don't show menu
 #+BEGIN_SRC emacs-lisp
-(menu-bar-mode -1)
+  (menu-bar-mode -1)
 #+END_SRC
 
 ** Don't show scrollbar
 #+BEGIN_SRC emacs-lisp
-(scroll-bar-mode -1)
+  (scroll-bar-mode -1)
 #+END_SRC
 
 ** Highlight line
 #+BEGIN_SRC emacs-lisp
-  ;; (global-hl-line-mode +1)
+  (global-hl-line-mode -1)
 #+END_SRC
 
 ** Delete selection
 #+BEGIN_SRC emacs-lisp
-(delete-selection-mode 1)
+  (delete-selection-mode 1)
 #+END_SRC
 
 ** Different backup directory
 #+BEGIN_SRC emacs-lisp
-(setq backup-directory-alist '(("." . "~/.saves")))
+  (setq backup-directory-alist '(("." . "~/.saves")))
 #+END_SRC
 
 ** Display line number when programming
 #+BEGIN_SRC emacs-lisp
-(add-hook 'prog-mode-hook 'display-line-numbers-mode)
+  (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 #+END_SRC
 
 ** Show matching parentheses
 #+BEGIN_SRC emacs-lisp
-(show-paren-mode 1)
+  (show-paren-mode 1)
 #+END_SRC
 
 ** Automatically close opening delimiters
 #+BEGIN_SRC emacs-lisp
-(electric-pair-mode 1)
+  (electric-pair-mode 1)
 #+END_SRC
 
 ** Bookmarks
@@ -62,6 +62,7 @@ Save bookmarks when modified
 #+BEGIN_SRC emacs-lisp
   (setq bookmark-save-flag 1)
 #+END_SRC
+
 ** Others
 #+BEGIN_SRC emacs-lisp
   ;; (setq gc-cons-threshold 100000000)
@@ -83,7 +84,9 @@ Save bookmarks when modified
     ;; (load-theme 'doom-one t)
     ;; (load-theme 'doom-dracula t)
     (load-theme 'doom-nord t)
-    ;; (load-theme 'doom-city-lights t)        
+    ;; (load-theme 'doom-nord-aurora t)
+    ;; (load-theme 'doom-nord-light t)
+    ;; (load-theme 'doom-city-lights t)
     ;; (load-theme 'doom-solarized-light t)
     )
 #+END_SRC
@@ -120,7 +123,7 @@ Save bookmarks when modified
 ** Json mode
 #+BEGIN_SRC emacs-lisp
   (use-package json-mode
-    :ensure t)
+     :ensure t)
 #+END_SRC
 
 
@@ -182,7 +185,7 @@ Save bookmarks when modified
     (progn
       (setq dashboard-items '((recents . 10)
   			      (projects . 5)
-  			      (bookmarks . 2)
+  			      (bookmarks . 3)
   			      )
   	  )
       (setq dashboard-projects-backend 'projectile)
@@ -238,15 +241,15 @@ Save bookmarks when modified
 
 ** Company
 #+BEGIN_SRC emacs-lisp
-  (setq company-minimum-prefix-length 1
-	company-idle-delay 0.0)
-  (use-package company
-    :ensure t
-    :config
-    (global-company-mode t)
-    ;; :init
-    ;; (add-hook 'after-init-hook 'global-company-mode)
-    )
+  ;; (setq company-minimum-prefix-length 1
+  ;; 	company-idle-delay 0.0)
+  ;; (use-package company
+  ;;   :ensure t
+  ;;   :config
+  ;;   (global-company-mode t)
+  ;;   ;; :init
+  ;;   ;; (add-hook 'after-init-hook 'global-company-mode)
+  ;;   )
 #+END_SRC
 
 ** Magit
@@ -254,8 +257,10 @@ Save bookmarks when modified
   (use-package magit
     :ensure t
     :bind (
-	   ("C-x g" . magit-status)
-	   ))
+  	   ("C-x g" . magit-status)
+  	   )
+    :config
+    (setq magit-branch-read-upstream-first nil))
 #+END_SRC
 
 ** Flycheck
@@ -264,8 +269,8 @@ Save bookmarks when modified
     :ensure t
     :init (global-flycheck-mode)
     :bind (:map flycheck-mode-map
-		("M-n" . flycheck-next-error) ; optional but recommended error navigation
-		("M-p" . flycheck-previous-error))
+  		("M-n" . flycheck-next-error) ; optional but recommended error navigation
+  		("M-p" . flycheck-previous-error))
     )
 #+END_SRC
 
@@ -328,10 +333,8 @@ Save bookmarks when modified
     )
 #+END_SRC
 
-
 ** Corfu
 #+BEGIN_SRC emacs-lisp
-  ;;;; Code Completion
   ;;;; Code Completion
   (use-package corfu
     :ensure t
@@ -398,7 +401,6 @@ Save bookmarks when modified
   ;; (add-hook 'typescript-ts-mode-hook #'setup-tide-mode)
 #+END_SRC
 
-
 ** LSP mode
 #+BEGIN_SRC emacs-lisp
   (use-package lsp-mode
@@ -439,6 +441,7 @@ Save bookmarks when modified
         (lsp-completion-enable-additional-text-edit t) ; Ex: auto-insert an import for a completion candidate
         (lsp-enable-snippet t)                         ; Important to provide full JSX completion
         (lsp-completion-show-kind t)                   ; Optional
+        (lsp-apply-edits-after-file-operations nil)    ; Solution from https://www.reddit.com/r/emacs/comments/1b0ppls/anyone_using_lspmode_with_tsls_having_trouble/
         ;; headerline
         (lsp-headerline-breadcrumb-enable t)  ; Optional, I like the breadcrumbs
         (lsp-headerline-breadcrumb-enable-diagnostics nil) ; Don't make them red, too noisy
@@ -516,7 +519,6 @@ Save bookmarks when modified
         )
 #+END_SRC
 
-
 ** Tree sitter
 #+BEGIN_SRC emacs-lisp
   ;; Loading tree-sitter package
@@ -591,7 +593,6 @@ Save bookmarks when modified
   	(os/setup-install-grammars))
 #+END_SRC
 
-
 ** Treesit
 #+BEGIN_SRC emacs-lisp
   (use-package treesit
@@ -627,7 +628,6 @@ Save bookmarks when modified
       :load-path ("~/workspace/combobulate")))
 #+END_SRC
 
-
 ** Eslint
 #+BEGIN_SRC emacs-lisp
   (use-package lsp-eslint
@@ -654,6 +654,7 @@ Save bookmarks when modified
               (message (format "Found local ESLINT! Setting: %s" eslint))
               (flymake-eslint-enable)))
           )
+
   (defun lemacs/configure-eslint-with-flymake ()
   	(when (or (eq major-mode 'tsx-ts-mode)
   			  (eq major-mode 'typescript-ts-mode)
@@ -668,7 +669,6 @@ Save bookmarks when modified
 
 #+END_SRC
       
-
 ** NPM mode
 #+BEGIN_SRC emacs-lisp
   (use-package npm-mode
@@ -688,7 +688,7 @@ Save bookmarks when modified
     :functions
     apheleia-global-mode
     :config
-    (setf (alist-get 'prettier-json apheleia-formatters)
+    (setf (alist-get 'prettier apheleia-formatters)
 	  '("prettier" "--stdin-filepath" filepath "--tab-width" 2))
     (setq apheleia-formatters-respect-indent-level nil)
     (apheleia-global-mode +1))
@@ -702,7 +702,6 @@ Save bookmarks when modified
     (exec-path-from-shell-initialize))
 #+END_SRC
 
-
 ** Other
 #+BEGIN_SRC emacs-lisp
   (use-package add-node-modules-path
@@ -713,41 +712,30 @@ Save bookmarks when modified
 
 * Python
 
-** Elpy
+** Python mode
 #+BEGIN_SRC emacs-lisp
-  (use-package elpy
+  (use-package python-mode
+    :ensure t
+    :hook (python-ts-mode . lsp-deferred)
+    :custom
+    (python-shell-interpreter "python3")
+    )
+#+END_SRC
+
+** Pyvenv
+#+BEGIN_SRC emacs-lisp
+  (use-package pyvenv
     :ensure t
     :config
-    (setq elpy-rpc-virtualenv-path 'current)
-    (setq elpy-rpc-python-command "python3")
-    :init
-    (elpy-enable)
+    (pyvenv-mode 1)
     )
-  ;; (add-hook 'elpy-mode-hook 'flycheck-mode)
 #+END_SRC
 
-** Reformatter
+** YASnippet
 #+BEGIN_SRC emacs-lisp
-  (use-package reformatter
-    :ensure t)
-
-  (use-package ruff-format
-    :ensure t)
-
-  (add-hook 'python-mode-hook 'ruff-format-on-save-mode)
-#+END_SRC
-
-
-* Rust
-** Rust mode
-#+BEGIN_SRC emacs-lisp
-  (require 'rust-mode)
-#+END_SRC
-** LSP mode
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'rust-mode-hook 'lsp-deferred)
-#+END_SRC
-** Code formatting
-#+BEGIN_SRC emacs-lisp
-  (setq rust-format-on-save t)
+  (use-package yasnippet
+    :ensure t
+    :config
+    (yas-global-mode 1)
+    )
 #+END_SRC
