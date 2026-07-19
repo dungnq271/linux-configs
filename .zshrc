@@ -117,9 +117,11 @@ alias ve="python3 -m venv venv"
 alias va="source venv/bin/activate"
 alias de="deactivate"
 
-# alias em="TERM=xterm-256color ./src/emacs -nw"
-alias emacs="~/Softwares/emacs-29.1/src/emacs"
-alias em="TERM=xterm-256color emacs -nw"
+# alias emacs="~/Softwares/emacs-29.1/src/emacs"
+# alias em="TERM=xterm-256color emacs -nw"
+alias emd='emacs --daemon'
+alias emt='emacsclient -t'
+alias emg='emacsclient -c'
 
 alias ee="em ~/.emacs.d/init.el"
 alias ez="em ~/.zshrc"
@@ -141,6 +143,16 @@ export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libstdc++.so.6
 
 source ~/.oh-my-zsh/custom/themes/powerlevel10k/powerlevel10k.zsh-theme
 
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
+
+# Load pyenv automatically
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init - bash)"
+
+# Load pyenv-virtualenv automatically
+eval "$(pyenv virtualenv-init -)"
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
@@ -154,3 +166,11 @@ export LABEL_STUDIO_LOCAL_FILES_DOCUMENT_ROOT=$(pwd)
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# pnpm
+export PNPM_HOME="/home/leonard/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end

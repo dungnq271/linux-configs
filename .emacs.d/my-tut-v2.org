@@ -24,7 +24,7 @@ Super duper config
 
 ** Highlight line
 #+BEGIN_SRC emacs-lisp
-  (global-hl-line-mode -1)
+  (global-hl-line-mode 1)
 #+END_SRC
 
 ** Delete selection
@@ -83,7 +83,8 @@ Super duper config
     :config
     ;; (load-theme 'doom-one t)
     ;; (load-theme 'doom-dracula t)
-    (load-theme 'doom-nord t)
+    ;; (load-theme 'doom-nord t)
+    (load-theme 'nord t)
     ;; (load-theme 'doom-nord-aurora t)
     ;; (load-theme 'doom-nord-light t)
     ;; (load-theme 'doom-city-lights t)
@@ -406,129 +407,129 @@ Super duper config
 
 ** LSP mode
 #+BEGIN_SRC emacs-lisp
-    (use-package lsp-mode
-          :diminish "LSP"
-          :ensure t
-          :hook ((lsp-mode . lsp-diagnostics-mode)
-                 (lsp-mode . lsp-enable-which-key-integration)
-                 ((tsx-ts-mode
-                   typescript-ts-mode
-                   js-ts-mode) . lsp-deferred))
-          :custom
-          (lsp-format-buffer-on-save nil)       ; Disable formatting on save
-          (lsp-keymap-prefix "C-c l")           ; Prefix for LSP actions
-          (lsp-completion-provider :none)       ; Using Corfu as the provider
-          (lsp-diagnostics-provider :flycheck)
-          (lsp-session-file (locate-user-emacs-file ".lsp-session"))
-          (lsp-log-io nil)                      ; IMPORTANT! Use only for debugging! Drastically affects performance
-          (lsp-keep-workspace-alive nil)        ; Close LSP server if all project buffers are closed
-          (lsp-idle-delay 0.5)                  ; Debounce timer for `after-change-function'
-          ;; core
-          (lsp-enable-xref t)                   ; Use xref to find references
-          (lsp-auto-configure t)                ; Used to decide between current active servers
-          (lsp-eldoc-enable-hover t)            ; Display signature information in the echo area
-          (lsp-enable-dap-auto-configure t)     ; Debug support
-          (lsp-enable-file-watchers nil)
-          (lsp-enable-folding nil)              ; I disable folding since I use origami
-          (lsp-enable-imenu t)
-          (lsp-enable-indentation nil)          ; I use prettier
-          (lsp-enable-links nil)                ; No need since we have `browse-url'
-          (lsp-enable-on-type-formatting nil)   ; Prettier handles this
-          (lsp-enable-suggest-server-download t) ; Useful prompt to download LSP providers
-          (lsp-enable-symbol-highlighting t)     ; Shows usages of symbol at point in the current buffer
-          (lsp-enable-text-document-color nil)   ; This is Treesitter's job
+  (use-package lsp-mode
+    :diminish "LSP"
+    :ensure t
+    :hook ((lsp-mode . lsp-diagnostics-mode)
+           (lsp-mode . lsp-enable-which-key-integration)
+           ((tsx-ts-mode
+             typescript-ts-mode
+             js-ts-mode) . lsp-deferred))
+    :custom
+    (lsp-format-buffer-on-save nil)       ; Disable formatting on save
+    (lsp-keymap-prefix "C-c l")           ; Prefix for LSP actions
+    (lsp-completion-provider :none)       ; Using Corfu as the provider
+    (lsp-diagnostics-provider :flycheck)
+    (lsp-session-file (locate-user-emacs-file ".lsp-session"))
+    (lsp-log-io nil)                      ; IMPORTANT! Use only for debugging! Drastically affects performance
+    (lsp-keep-workspace-alive nil)        ; Close LSP server if all project buffers are closed
+    (lsp-idle-delay 0.5)                  ; Debounce timer for `after-change-function'
+    ;; core
+    (lsp-enable-xref t)                   ; Use xref to find references
+    (lsp-auto-configure t)                ; Used to decide between current active servers
+    (lsp-eldoc-enable-hover t)            ; Display signature information in the echo area
+    (lsp-enable-dap-auto-configure t)     ; Debug support
+    (lsp-enable-file-watchers nil)
+    (lsp-enable-folding nil)              ; I disable folding since I use origami
+    (lsp-enable-imenu t)
+    (lsp-enable-indentation nil)          ; I use prettier
+    (lsp-enable-links nil)                ; No need since we have `browse-url'
+    (lsp-enable-on-type-formatting nil)   ; Prettier handles this
+    (lsp-enable-suggest-server-download t) ; Useful prompt to download LSP providers
+    (lsp-enable-symbol-highlighting t)     ; Shows usages of symbol at point in the current buffer
+    (lsp-enable-text-document-color nil)   ; This is Treesitter's job
 
-          (lsp-ui-sideline-show-hover nil)      ; Sideline used only for diagnostics
-          (lsp-ui-sideline-diagnostic-max-lines 20) ; 20 lines since typescript errors can be quite big
-  	(lsp-eslint-multi-root nil)
-          ;; completion
-          (lsp-completion-enable t)
-          (lsp-completion-enable-additional-text-edit t) ; Ex: auto-insert an import for a completion candidate
-          (lsp-enable-snippet t)                         ; Important to provide full JSX completion
-          (lsp-completion-show-kind t)                   ; Optional
-          (lsp-apply-edits-after-file-operations nil)    ; Solution from https://www.reddit.com/r/emacs/comments/1b0ppls/anyone_using_lspmode_with_tsls_having_trouble/
-          ;; headerline
-          (lsp-headerline-breadcrumb-enable t)  ; Optional, I like the breadcrumbs
-          (lsp-headerline-breadcrumb-enable-diagnostics nil) ; Don't make them red, too noisy
-          (lsp-headerline-breadcrumb-enable-symbol-numbers nil)
-          (lsp-headerline-breadcrumb-icons-enable nil)
-          ;; modeline
-          (lsp-modeline-code-actions-enable nil) ; Modeline should be relatively clean
-          (lsp-modeline-diagnostics-enable nil)  ; Already supported through `flycheck'
-          (lsp-modeline-workspace-status-enable nil) ; Modeline displays "LSP" when lsp-mode is enabled
-          (lsp-signature-doc-lines 1)                ; Don't raise the echo area. It's distracting
-          (lsp-ui-doc-use-childframe t)              ; Show docs for symbol at point
-          (lsp-eldoc-render-all nil)            ; This would be very useful if it would respect `lsp-signature-doc-lines', currently it's distracting
-          ;; lens
-          (lsp-lens-enable nil)                 ; Optional, I don't need it
-          ;; semantic
-          (lsp-semantic-tokens-enable nil)      ; Related to highlighting, and we defer to treesitter
+    (lsp-ui-sideline-show-hover nil)      ; Sideline used only for diagnostics
+    (lsp-ui-sideline-diagnostic-max-lines 20) ; 20 lines since typescript errors can be quite big
+    (lsp-eslint-multi-root nil)
+    ;; completion
+    (lsp-completion-enable t)
+    (lsp-completion-enable-additional-text-edit t) ; Ex: auto-insert an import for a completion candidate
+    (lsp-enable-snippet t)                         ; Important to provide full JSX completion
+    (lsp-completion-show-kind t)                   ; Optional
+    (lsp-apply-edits-after-file-operations nil)    ; Solution from https://www.reddit.com/r/emacs/comments/1b0ppls/anyone_using_lspmode_with_tsls_having_trouble/
+    ;; headerline
+    (lsp-headerline-breadcrumb-enable t)  ; Optional, I like the breadcrumbs
+    (lsp-headerline-breadcrumb-enable-diagnostics nil) ; Don't make them red, too noisy
+    (lsp-headerline-breadcrumb-enable-symbol-numbers nil)
+    (lsp-headerline-breadcrumb-icons-enable nil)
+    ;; modeline
+    (lsp-modeline-code-actions-enable nil) ; Modeline should be relatively clean
+    (lsp-modeline-diagnostics-enable nil)  ; Already supported through `flycheck'
+    (lsp-modeline-workspace-status-enable nil) ; Modeline displays "LSP" when lsp-mode is enabled
+    (lsp-signature-doc-lines 1)                ; Don't raise the echo area. It's distracting
+    (lsp-ui-doc-use-childframe t)              ; Show docs for symbol at point
+    (lsp-eldoc-render-all nil)            ; This would be very useful if it would respect `lsp-signature-doc-lines', currently it's distracting
+    ;; lens
+    (lsp-lens-enable nil)                 ; Optional, I don't need it
+    ;; semantic
+    (lsp-semantic-tokens-enable nil)      ; Related to highlighting, and we defer to treesitter
 
-          :preface
-          (defun lsp-booster--advice-json-parse (old-fn &rest args)
-    	"Try to parse bytecode instead of json."
-          (or
-           (when (equal (following-char) ?#)
+    :preface
+    (defun lsp-booster--advice-json-parse (old-fn &rest args)
+      "Try to parse bytecode instead of json."
+      (or
+       (when (equal (following-char) ?#)
 
-             (let ((bytecode (read (current-buffer))))
-               (when (byte-code-function-p bytecode)
-                 (funcall bytecode))))
-           (apply old-fn args))
-    	)
+         (let ((bytecode (read (current-buffer))))
+           (when (byte-code-function-p bytecode)
+             (funcall bytecode))))
+       (apply old-fn args))
+      )
 
-          (defun lsp-booster--advice-final-command (old-fn cmd &optional test?)
-          "Prepend emacs-lsp-booster command to lsp CMD."
-          (let ((orig-result (funcall old-fn cmd test?)))
-            (if (and (not test?)                             ;; for check lsp-server-present?
-                     (not (file-remote-p default-directory)) ;; see lsp-resolve-final-command, it would add extra shell wrapper
-                     lsp-use-plists
-                     (not (functionp 'json-rpc-connection))  ;; native json-rpc
-                     (executable-find "emacs-lsp-booster"))
-                (progn
-                  (message "Using emacs-lsp-booster for %s!" orig-result)
-                  (cons "emacs-lsp-booster" orig-result))
-              orig-result))
-    	)
+    (defun lsp-booster--advice-final-command (old-fn cmd &optional test?)
+      "Prepend emacs-lsp-booster command to lsp CMD."
+      (let ((orig-result (funcall old-fn cmd test?)))
+        (if (and (not test?)                             ;; for check lsp-server-present?
+                 (not (file-remote-p default-directory)) ;; see lsp-resolve-final-command, it would add extra shell wrapper
+                 lsp-use-plists
+                 (not (functionp 'json-rpc-connection))  ;; native json-rpc
+                 (executable-find "emacs-lsp-booster"))
+            (progn
+              (message "Using emacs-lsp-booster for %s!" orig-result)
+              (cons "emacs-lsp-booster" orig-result))
+          orig-result))
+      )
 
-          :init
-          (setq lsp-use-plists t)
-          ;; Initiate https://github.com/blahgeek/emacs-lsp-booster for performance
-          (advice-add (if (progn (require 'json)
-                               (fboundp 'json-parse-buffer))
-                        'json-parse-buffer
-                      'json-read)
-                    :around
-                    #'lsp-booster--advice-json-parse
-    		  )
-          (advice-add 'lsp-resolve-final-command :around #'lsp-booster--advice-final-command)
-          )
+    :init
+    (setq lsp-use-plists t)
+    ;; Initiate https://github.com/blahgeek/emacs-lsp-booster for performance
+    (advice-add (if (progn (require 'json)
+                           (fboundp 'json-parse-buffer))
+                    'json-parse-buffer
+                  'json-read)
+                :around
+                #'lsp-booster--advice-json-parse
+    	      )
+    (advice-add 'lsp-resolve-final-command :around #'lsp-booster--advice-final-command)
+    )
 
-    (use-package lsp-completion
-          :no-require
-          :hook ((lsp-mode . lsp-completion-mode))
-    	)
+  (use-package lsp-completion
+    :no-require
+    :hook ((lsp-mode . lsp-completion-mode))
+    )
 
-    (use-package lsp-ui
-          :ensure t
-          :commands
-          (lsp-ui-doc-show
-           lsp-ui-doc-glance)
-          :bind (:map lsp-mode-map
-                      ("C-c C-d" . 'lsp-ui-doc-glance))
-          :after (lsp-mode evil)
-          :config (setq lsp-ui-doc-enable t
-                        evil-lookup-func #'lsp-ui-doc-glance ; Makes K in evil-mode toggle the doc for symbol at point
-                        lsp-ui-doc-show-with-cursor nil      ; Don't show doc when cursor is over symbol - too distracting
-                        lsp-ui-doc-include-signature t       ; Show signature
-                        lsp-ui-doc-position 'at-point)
-          )
+  (use-package lsp-ui
+    :ensure t
+    :commands
+    (lsp-ui-doc-show
+     lsp-ui-doc-glance)
+    :bind (:map lsp-mode-map
+                ("C-c C-d" . 'lsp-ui-doc-glance))
+    :after (lsp-mode evil)
+    :config (setq lsp-ui-doc-enable t
+                  evil-lookup-func #'lsp-ui-doc-glance ; Makes K in evil-mode toggle the doc for symbol at point
+                  lsp-ui-doc-show-with-cursor nil      ; Don't show doc when cursor is over symbol - too distracting
+                  lsp-ui-doc-include-signature t       ; Show signature
+                  lsp-ui-doc-position 'at-point)
+    )
 
-  (with-eval-after-load 'lsp-tailwindcss
-     (setq lsp-tailwindcss-major-modes
-           '(html-mode
-             css-mode
-             scss-mode
-             web-mode)))
+  ;; (with-eval-after-load 'lsp-tailwindcss
+  ;;   (setq lsp-tailwindcss-major-modes
+  ;;         '(html-mode
+  ;;           css-mode
+  ;;           scss-mode
+  ;;           web-mode)))
 #+END_SRC
 
 ** Tree sitter
@@ -642,43 +643,43 @@ Super duper config
 
 ** Eslint
 #+BEGIN_SRC emacs-lisp
-  (use-package lsp-eslint
-        :demand t
-        :after lsp-mode
-  	)
-  (use-package flymake-eslint
-        :ensure t
-        :config
-        ;; If Emacs is compiled with JSON support
-        (setq flymake-eslint-prefer-json-diagnostics t)
-        )
-  (defun lemacs/use-local-eslint ()
-          "Set project's `node_modules' binary eslint as first priority.
-        If nothing is found, keep the default value flymake-eslint set or
-        your override of `flymake-eslint-executable-name.'"
-          (interactive)
-          (let* ((root (locate-dominating-file (buffer-file-name) "node_modules"))
-                 (eslint (and root
-                              (expand-file-name "node_modules/.bin/eslint"
-                                                root))))
-            (when (and eslint (file-executable-p eslint))
-              (setq-local flymake-eslint-executable-name eslint)
-              (message (format "Found local ESLINT! Setting: %s" eslint))
-              (flymake-eslint-enable)))
+    (use-package lsp-eslint
+          :demand t
+          :after lsp-mode
           )
+  ;;   (use-package flymake-eslint
+  ;;         :ensure t
+  ;;         :config
+  ;;         ;; If Emacs is compiled with JSON support
+  ;;         (setq flymake-eslint-prefer-json-diagnostics t)
+  ;;         )
+  ;;   (defun lemacs/use-local-eslint ()
+  ;;           "Set project's `node_modules' binary eslint as first priority.
+  ;;         If nothing is found, keep the default value flymake-eslint set or
+  ;;         your override of `flymake-eslint-executable-name.'"
+  ;;           (interactive)
+  ;;           (let* ((root (locate-dominating-file (buffer-file-name) "node_modules"))
+  ;;                  (eslint (and root
+  ;;                               (expand-file-name "node_modules/.bin/eslint"
+  ;;                                                 root))))
+  ;;             (when (and eslint (file-executable-p eslint))
+  ;;               (setq-local flymake-eslint-executable-name eslint)
+  ;;               (message (format "Found local ESLINT! Setting: %s" eslint))
+  ;;               (flymake-eslint-enable)))
+  ;;           )
 
-  (defun lemacs/configure-eslint-with-flymake ()
-  	(when (or (eq major-mode 'tsx-ts-mode)
-  			  (eq major-mode 'typescript-ts-mode)
-  			  (eq major-mode 'typescriptreact-mode))
-        (lemacs/use-local-eslint)
-        )
-  	)
+  ;;   (defun lemacs/configure-eslint-with-flymake ()
+  ;;   	(when (or (eq major-mode 'tsx-ts-mode)
+  ;;   			  (eq major-mode 'typescript-ts-mode)
+  ;;   			  (eq major-mode 'typescriptreact-mode))
+  ;;         (lemacs/use-local-eslint)
+  ;;         )
+  ;;   	)
 
-  (add-hook 'js-ts-mode-hook #'lemacs/use-local-eslint)
-  (add-hook 'tsx-ts-mode-hook #'lemacs/use-local-eslint)
-  (add-hook 'typescript-ts-mode-hook #'lemacs/use-local-eslint)
-
+  ;;   (add-hook 'js-ts-mode-hook #'lemacs/use-local-eslint)
+  ;;   (add-hook 'tsx-ts-mode-hook #'lemacs/use-local-eslint)
+  ;;   (add-hook 'typescript-ts-mode-hook #'lemacs/use-local-eslint)
+  ;; (setq lsp-eslint-download-url "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/dbaeumer/vsextensions/vscode-eslint/3.0.10/vspackage") ;; latest VSCode eslint extension from marketplace
 #+END_SRC
       
 ** NPM mode
